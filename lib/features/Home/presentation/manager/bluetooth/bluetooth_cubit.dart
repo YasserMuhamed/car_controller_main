@@ -6,7 +6,6 @@ import 'package:test_car_controller/core/app_constants.dart';
 import 'package:test_car_controller/features/Home/data/models/bluetooth_device_model.dart';
 import 'package:test_car_controller/features/Home/data/repository/bluetooth_repo.dart';
 
-
 part 'bluetooth_state.dart';
 
 class BluetoothCubit extends Cubit<BluetoothState> {
@@ -165,6 +164,14 @@ class BluetoothCubit extends Cubit<BluetoothState> {
 
   Future<void> sendStop() async {
     await sendCommand(AppConstants.COMMAND_STOP);
+  }
+
+  Future<void> sendManual() async {
+    await sendCommand(AppConstants.SET_MANUAL);
+  }
+
+  Future<void> sendLineFollower() async {
+    await sendCommand(AppConstants.SET_LINE_FOLLOWER);
   }
 
   Future<void> disconnect() async {

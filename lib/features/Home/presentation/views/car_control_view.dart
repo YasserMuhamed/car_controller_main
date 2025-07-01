@@ -5,10 +5,17 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:test_car_controller/features/Home/data/models/bluetooth_device_model.dart';
 import 'package:test_car_controller/features/Home/presentation/manager/bluetooth/bluetooth_cubit.dart';
 
-class CarControllerView extends StatelessWidget {
+class CarControllerView extends StatefulWidget {
   final BluetoothDeviceModel deviceModel;
 
   const CarControllerView({super.key, required this.deviceModel});
+
+  @override
+  State<CarControllerView> createState() => _CarControllerViewState();
+}
+
+class _CarControllerViewState extends State<CarControllerView> {
+  bool mode = true; // Move mode to class level so it persists
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +32,14 @@ class CarControllerView extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-           leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            // Disconnect and go back when back button is pressed
-            context.read<BluetoothCubit>().disconnect();
-            Navigator.of(context).pop();
-          },
-        ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              // Disconnect and go back when back button is pressed
+              context.read<BluetoothCubit>().disconnect();
+              Navigator.of(context).pop();
+            },
+          ),
           centerTitle: true,
           title: const Text.rich(
             TextSpan(
@@ -42,13 +49,33 @@ class CarControllerView extends StatelessWidget {
               ],
             ),
           ),
+          actions: [
+            Switch.adaptive(
+              activeColor: Colors.white,
+              activeTrackColor: Colors.blue[700],
+              value: mode,
+              onChanged: (value) {
+                if (value) {
+                  setState(() {
+                    mode = true;
+                    context.read<BluetoothCubit>().sendManual();
+                  });
+                } else {
+                  setState(() {
+                    mode = false;
+                    context.read<BluetoothCubit>().sendLineFollower();
+                  });
+                }
+              },
+            ),
+          ],
         ),
         body: ListView(
           children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: 16),
               child: ListTile(
-                title: Text('Connected to ${deviceModel.name}'),
+                title: Text('Connected to ${widget.deviceModel.name}'),
                 trailing: MaterialButton(
                   onPressed: () {
                     context.read<BluetoothCubit>().disconnect();
