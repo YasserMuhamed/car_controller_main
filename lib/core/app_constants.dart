@@ -9,4 +9,6 @@ class AppConstants {
   static const String COMMAND_LEFT = 'L';
   static const String COMMAND_RIGHT = 'R';
   static const String COMMAND_STOP = 'Z';
+  static const String SET_MANUAL = 'I';
+  static const String SET_LINE_FOLLOWER = 'J';
 }

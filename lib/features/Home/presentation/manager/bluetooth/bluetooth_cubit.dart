@@ -158,6 +158,14 @@ class BluetoothCubit extends Cubit<BluetoothState> {
     await sendCommand(AppConstants.COMMAND_STOP);
   }
 
+  Future<void> sendManual() async {
+    await sendCommand(AppConstants.SET_MANUAL);
+  }
+
+  Future<void> sendLineFollower() async {
+    await sendCommand(AppConstants.SET_LINE_FOLLOWER);
+  }
+
   Future<void> disconnect() async {
     await _repository.disconnect();
     _connectionStateSubscription?.cancel();
