@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test_car_controller/core/utils/helpers.dart';
-import 'package:test_car_controller/features/Home/presentation/views/error_view.dart';
-import 'package:test_car_controller/features/Home/presentation/views/car_control_view.dart';
-import 'package:test_car_controller/features/Home/presentation/widgets/device_list_item.dart';
-import 'package:test_car_controller/features/Home/presentation/widgets/scanning_indicator.dart';
-import 'package:test_car_controller/features/Home/presentation/manager/bluetooth/bluetooth_cubit.dart';
-
+import 'package:garage_app/core/utils/helpers.dart';
+import 'package:garage_app/features/Home/presentation/views/error_view.dart';
+import 'package:garage_app/features/Home/presentation/views/car_control_view.dart';
+import 'package:garage_app/features/Home/presentation/widgets/device_list_item.dart';
+import 'package:garage_app/features/Home/presentation/widgets/scanning_indicator.dart';
+import 'package:garage_app/features/Home/presentation/manager/bluetooth/bluetooth_cubit.dart';
 
 class BluetoothHomeView extends StatelessWidget {
   const BluetoothHomeView({super.key});
@@ -19,7 +18,7 @@ class BluetoothHomeView extends StatelessWidget {
         title: const Text.rich(
           TextSpan(
             children: [
-              TextSpan(text: 'Car', style: TextStyle(fontWeight: FontWeight.bold)),
+              TextSpan(text: 'Garage', style: TextStyle(fontWeight: FontWeight.bold)),
               TextSpan(text: 'Controller', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold)),
             ],
           ),
@@ -52,7 +51,7 @@ class BluetoothHomeView extends StatelessWidget {
             Helpers.showErrorSnackBar(context, state.message);
           } else if (state is BluetoothConnected) {
             Helpers.showSuccessSnackBar(context, 'Connected to ${state.deviceModel.name}');
-             Navigator.of(context).push(
+            Navigator.of(context).push(
               MaterialPageRoute(
                 builder:
                     (context) => BlocProvider.value(
@@ -64,7 +63,7 @@ class BluetoothHomeView extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          if (state is BluetoothInitial || state is BluetoothLoading || state is BluetoothConnecting ) {
+          if (state is BluetoothInitial || state is BluetoothLoading || state is BluetoothConnecting) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is BluetoothError) {
             return ErrorView(errorMessage: state.message, onRetry: () => context.read<BluetoothCubit>().initialize());
@@ -84,22 +83,20 @@ class BluetoothHomeView extends StatelessWidget {
                   child:
                       devices.isEmpty && !isScanning
                           ? RefreshIndicator(
-                            onRefresh: ()async {
-                               context.read<BluetoothCubit>().startScan();
+                            onRefresh: () async {
+                              context.read<BluetoothCubit>().startScan();
                             },
                             child: SingleChildScrollView(
                               physics: const AlwaysScrollableScrollPhysics(),
                               child: SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.8,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                const Center(child: Text('No devices found. Pull to refresh.')),
-                                ],
-                              ),
+                                height: MediaQuery.of(context).size.height * 0.8,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [const Center(child: Text('No devices found. Pull to refresh.'))],
+                                ),
                               ),
                             ),
-                            )
+                          )
                           : RefreshIndicator(
                             onRefresh: () async {
                               context.read<BluetoothCubit>().startScan();

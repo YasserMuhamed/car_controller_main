@@ -2,10 +2,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:test_car_controller/core/app_constants.dart';
-import 'package:test_car_controller/features/Home/data/models/bluetooth_device_model.dart';
-import 'package:test_car_controller/features/Home/data/repository/bluetooth_repo.dart';
-
+import 'package:garage_app/core/app_constants.dart';
+import 'package:garage_app/features/Home/data/models/bluetooth_device_model.dart';
+import 'package:garage_app/features/Home/data/repository/bluetooth_repo.dart';
 
 part 'bluetooth_state.dart';
 
@@ -147,20 +146,12 @@ class BluetoothCubit extends Cubit<BluetoothState> {
     }
   }
 
-  Future<void> sendForward() async {
-    await sendCommand(AppConstants.COMMAND_FORWARD);
+  Future<void> openUser() async {
+    await sendCommand(AppConstants.COMMAND_USER);
   }
 
-  Future<void> sendBackward() async {
-    await sendCommand(AppConstants.COMMAND_BACKWARD);
-  }
-
-  Future<void> sendLeft() async {
-    await sendCommand(AppConstants.COMMAND_LEFT);
-  }
-
-  Future<void> sendRight() async {
-    await sendCommand(AppConstants.COMMAND_RIGHT);
+  Future<void> openAdmin() async {
+    await sendCommand(AppConstants.COMMAND_ADMIN);
   }
 
   Future<void> sendStop() async {

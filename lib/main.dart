@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test_car_controller/features/Home/data/repository/bluetooth_repo.dart';
-import 'package:test_car_controller/features/Home/presentation/views/bluetooth_home_view.dart';
-import 'package:test_car_controller/features/Home/presentation/manager/bluetooth/bluetooth_cubit.dart';
+import 'package:garage_app/features/Home/data/repository/bluetooth_repo.dart';
+import 'package:garage_app/features/Home/presentation/views/bluetooth_home_view.dart';
+import 'package:garage_app/features/Home/presentation/manager/bluetooth/bluetooth_cubit.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,9 +17,9 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => BluetoothCubit(repository: BluetoothRepository())..initialize(),
       child: MaterialApp(
-        title: 'Car Controller',
+        title: 'Garage Controller',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(useMaterial3: true,brightness: Brightness.dark),
+        theme: ThemeData(useMaterial3: true, brightness: Brightness.dark),
         home: const BluetoothHomeView(),
       ),
     );

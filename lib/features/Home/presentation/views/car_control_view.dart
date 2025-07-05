@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../widgets/control_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:test_car_controller/features/Home/data/models/bluetooth_device_model.dart';
-import 'package:test_car_controller/features/Home/presentation/manager/bluetooth/bluetooth_cubit.dart';
+import 'package:garage_app/features/Home/data/models/bluetooth_device_model.dart';
+import 'package:garage_app/features/Home/presentation/manager/bluetooth/bluetooth_cubit.dart';
 
 class CarControllerView extends StatelessWidget {
   final BluetoothDeviceModel deviceModel;
@@ -25,19 +25,19 @@ class CarControllerView extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-           leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            // Disconnect and go back when back button is pressed
-            context.read<BluetoothCubit>().disconnect();
-            Navigator.of(context).pop();
-          },
-        ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              // Disconnect and go back when back button is pressed
+              context.read<BluetoothCubit>().disconnect();
+              Navigator.of(context).pop();
+            },
+          ),
           centerTitle: true,
           title: const Text.rich(
             TextSpan(
               children: [
-                TextSpan(text: 'Car', style: TextStyle(fontWeight: FontWeight.bold)),
+                TextSpan(text: 'Garage', style: TextStyle(fontWeight: FontWeight.bold)),
                 TextSpan(text: 'Controller', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold)),
               ],
             ),
@@ -70,60 +70,29 @@ class CarControllerView extends StatelessWidget {
                       width: (MediaQuery.of(context).size.width * 0.8) + 15,
                       height: 65,
                       child: ControlButton(
-                        icon: FontAwesomeIcons.arrowUp,
+                        icon: FontAwesomeIcons.squareParking,
+                        buttonColor: Colors.grey,
+                        pressedButtonColor: Colors.grey.shade800,
                         onPressed: () {
-                          context.read<BluetoothCubit>().sendForward();
+                          context.read<BluetoothCubit>().openUser();
                         },
                         onReleased: () {
                           context.read<BluetoothCubit>().sendStop();
                         },
                       ),
                     ),
-                    const SizedBox(height: 15),
-                    // Left and right buttons
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Left button
-                        Container(
-                          margin: const EdgeInsets.only(right: 15),
-                          height: 65,
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          child: ControlButton(
-                            icon: FontAwesomeIcons.arrowLeft,
-                            onPressed: () {
-                              context.read<BluetoothCubit>().sendLeft();
-                            },
-                            onReleased: () {
-                              context.read<BluetoothCubit>().sendStop();
-                            },
-                          ),
-                        ),
-                        // Right button
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          height: 65,
-                          child: ControlButton(
-                            icon: FontAwesomeIcons.arrowRight,
-                            onPressed: () {
-                              context.read<BluetoothCubit>().sendRight();
-                            },
-                            onReleased: () {
-                              context.read<BluetoothCubit>().sendStop();
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 15),
+
+                    const SizedBox(height: 45),
                     // Backward button
                     SizedBox(
                       width: (MediaQuery.of(context).size.width * 0.8) + 15,
                       height: 65,
                       child: ControlButton(
-                        icon: FontAwesomeIcons.arrowDown,
+                        icon: FontAwesomeIcons.squareParking,
+                        buttonColor: Colors.yellow.shade700,
+                        pressedButtonColor: Colors.yellow.shade800,
                         onPressed: () {
-                          context.read<BluetoothCubit>().sendBackward();
+                          context.read<BluetoothCubit>().openAdmin();
                         },
                         onReleased: () {
                           context.read<BluetoothCubit>().sendStop();

@@ -1,4 +1,4 @@
-package com.example.test_car_controller
+package com.example.garage_app
 
 import io.flutter.embedding.android.FlutterActivity
 

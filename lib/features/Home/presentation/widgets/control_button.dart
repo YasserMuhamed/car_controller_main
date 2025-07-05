@@ -3,10 +3,19 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ControlButton extends StatefulWidget {
   final IconData icon;
+  final Color buttonColor;
+  final Color pressedButtonColor;
   final VoidCallback onPressed;
   final VoidCallback onReleased;
 
-  const ControlButton({super.key, required this.icon, required this.onPressed, required this.onReleased});
+  const ControlButton({
+    super.key,
+    required this.icon,
+    required this.onPressed,
+    required this.onReleased,
+    this.buttonColor = Colors.blue,
+    this.pressedButtonColor = Colors.blue,
+  });
 
   @override
   State<ControlButton> createState() => _ControlButtonState();
@@ -37,8 +46,18 @@ class _ControlButtonState extends State<ControlButton> {
         widget.onReleased();
       },
       child: Container(
-        decoration: BoxDecoration(color: _isPressed ? Colors.blue.shade800 : Colors.blue, borderRadius: BorderRadius.circular(10)),
-        child: Center(child: FaIcon(widget.icon, color: Colors.white, size: 24)),
+        decoration: BoxDecoration(
+          color: _isPressed ? widget.pressedButtonColor : widget.buttonColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(child: FaIcon(widget.icon, color: Colors.white, size: 24)),
+            const SizedBox(width: 10),
+            Text('Open Garage', style: TextStyle(color: Colors.white, fontSize: 16)),
+          ],
+        ),
       ),
     );
   }
